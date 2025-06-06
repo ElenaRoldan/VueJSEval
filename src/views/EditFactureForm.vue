@@ -155,7 +155,7 @@ const $router = useRouter()
 const $route = useRoute()
 const factureStore = useFacturesStore()
 const { facture } = storeToRefs(factureStore)
-const { getFacture, deleteFacture, patchFacture } = factureStore
+const { getFacture, getFactures, deleteFacture, patchFacture } = factureStore
 
 const date = ref(null)
 const num = ref(null)
@@ -210,6 +210,8 @@ const onSave = async () => {
     prestations: prestations.value
   }
   await patchFacture(id, data)
+  await getFactures()
+
   $router.push('/')
 }
 
