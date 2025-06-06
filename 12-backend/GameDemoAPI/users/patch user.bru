@@ -1,0 +1,22 @@
+meta {
+  name: patch user
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{url}}/users/:id
+  body: json
+  auth: none
+}
+
+params:path {
+  id: 1
+}
+
+body:json {
+  {
+    "name": "Maria Doe",
+    "email": "maria@gmail.com"
+  }
+}
