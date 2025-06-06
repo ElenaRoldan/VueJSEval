@@ -8,7 +8,7 @@ import { onBeforeMount } from 'vue'
 import { useFacturesStore } from '../stores/factures.js'
 import { storeToRefs } from 'pinia'
 import CardFactures from '@/components/CardFactures.vue'
-// import { onMounted } from 'vue'
+
 const factureStore = useFacturesStore()
 const { facturesListe  } = storeToRefs(factureStore)
 const { getFactures } = factureStore
@@ -16,9 +16,7 @@ const { getFactures } = factureStore
 
 
 onBeforeMount(async () => {
-  // on appelle la liste des jeux depuis l'API
   await getFactures()
-  // on appelle l'utilisateur depuis l'API
 })
 </script>
 
