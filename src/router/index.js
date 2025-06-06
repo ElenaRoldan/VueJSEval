@@ -9,12 +9,12 @@ const router = createRouter({
     {
       path: '/',
       name: 'factures',
-      component: FacturesListe,
+      component: () => import('../views/FacturesListe.vue'),
     },
     {
       path: '/facture/edit/:id',
       name: 'factureEdit',
-      component: EditFactureForm,
+      component:() => import('../views/EditFactureForm.vue'),
     }
 
    
