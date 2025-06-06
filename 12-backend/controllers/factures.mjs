@@ -3,147 +3,117 @@ import fs from 'fs'
 
 const getItems = async (req, res) => {
   try {
-    // récupération des données depuis le fichier JSON
     const data = await fs.promises.readFile('./db/factures.json', 'utf8')
-    console.log(data);
+    console.log('Données factures récupérées');
     
-    // conversion des données en objet JSON
     const list = JSON.parse(data)
-    // ici on pourrait écrire des fonctions de vérification ou de traitement des données
-    //...
-    // puis on renvoie la liste des utilisateurs
     res.json(list)
-    // possibilité de renvoyer plusieurs types de données
-    // res.json({ list })
-    // res.send('texte ou données')
-    // res.sendStatus(200)
-    // res.status(200).send('texte ou données') 
 
   } catch (err) {
-    // en cas d'erreur, on renvoie un message d'erreur
     console.log(err)
-    res.status(500).json({ error: true, message:'Error reading file' })
+    res.status(500).json({ error: true, message:'Error reading factures file' })
   }
 }
 
 const getItem = async (req, res) => {
   try {
-    // récupération des données depuis le fichier JSON
     const data = await fs.promises.readFile('./db/factures.json', 'utf8')
-    // conversion des données en objet JSON
     const list = JSON.parse(data)
-    
-    // chercher l'utilisateur dans la liste des données
     const item = list.find(item => item.id == req.params.id)
 
     if (!item) {
       res.status(404).json({ error: true, message:'Facture not found' })
       return
     }
-    // puis on renvoie la donnée utilisateur
     res.json(item)
   } catch (err) {
-    // en cas d'erreur, on renvoie un message d'erreur
     console.log(err)
-    res.status(500).json({ error: true, message:'Error reading file' })
+    res.status(500).json({ error: true, message:'Error reading factures file' })
   }
 }
 
 const patchItem = async (req, res) => {
   try {
-    // récupération des données depuis le fichier JSON
     const data = await fs.promises.readFile('./db/factures.json', 'utf8')
-    // conversion des données en objet JSON
     const list = JSON.parse(data)
-    
-    // chercher l'utilisateur dans la liste des données
     const itemToEdit = list.find(item => item.id == req.params.id)
     if (!itemToEdit) {
       res.status(404).json({ error: true, message:'Facture not found' })
       return
     }
-    // modifier la donnée utilisateur
     const itemToSave = {
       ...itemToEdit,
       ...req.body
     }
-    // modifier la liste des données
     const listToSave = list.map(item => item.id == req.params.id ? itemToSave : item)
-    // sauvegarder la liste des données
-    await fs.promises.writeFile('./db/factures.json', JSON.stringify(listToSave))
+    await fs.promises.writeFile('./db/factures.json', JSON.stringify(listToSave, null, 2))
 
-    // puis on renvoie la donnée utilisateur
     res.json(itemToSave)
   } catch (err) {
-    // en cas d'erreur, on renvoie un message d'erreur
     console.log(err)
-    res.status(500).json({ error: true, message:'Error reading file' })
+    res.status(500).json({ error: true, message:'Error updating facture' })
   }
 }
 
 const postItem = async (req, res) => {
   try {
-    // récupération des données depuis le fichier JSON
     const data = await fs.promises.readFile('./db/factures.json', 'utf8')
-    // conversion des données en objet JSON
     const list = JSON.parse(data)
-    // modifier la donnée utilisateur
+    
     const itemToSave = {
       ...req.body
     }
-    // ajouter l'id
     itemToSave.id = uuidv4()
     
-    // vérification des données côté backend (IMPORTANT pour la sécurité)
-    if (!itemToSave.numero || itemToSave.numero.trim().length < 3) {
-      res.status(400).json({ error: true, message: 'Missing numero or numero too short' })
+    if (!itemToSave.num || itemToSave.num.trim().length < 1) {
+      res.status(400).json({ error: true, message: 'Missing num or num too short' })
       return
     }
-    if (!itemToSave.montant || itemToSave.montant <= 0) {
-      res.status(400).json({ error: true, message: 'Missing montant or invalid amount' })
+    if (!itemToSave.client || itemToSave.client.trim().length < 1) {
+      res.status(400).json({ error: true, message: 'Missing client name' })
       return
+    }
+    if (!itemToSave.date) {
+      res.status(400).json({ error: true, message: 'Missing date' })
+      return
+    }
+    if (!itemToSave.description) {
+      res.status(400).json({ error: true, message: 'Missing description' })
+      return
+    }
+    if (!itemToSave.prestations) {
+      itemToSave.prestations = []  
     }
 
-    // modifier la liste des données
     list.push(itemToSave)
-    // sauvegarder la liste des données
-    await fs.promises.writeFile('./db/factures.json', JSON.stringify(list))
+    await fs.promises.writeFile('./db/factures.json', JSON.stringify(list, null, 2))
 
-    // puis on renvoie la donnée utilisateur
     res.json(itemToSave)
   } catch (err) {
-    // en cas d'erreur, on renvoie un message d'erreur
     console.log(err)
-    res.status(500).json({ error: true, message:'Error reading file' })
+    res.status(500).json({ error: true, message:'Error creating facture' })
   }
 }
 
 const deleteItem = async (req, res) => {
   try {
-    // récupération des données depuis le fichier JSON
     const data = await fs.promises.readFile('./db/factures.json', 'utf8')
-    // conversion des données en objet JSON
     const list = JSON.parse(data)
     
-    // chercher l'utilisateur dans la liste des données
     const itemToDelete = list.find(item => item.id == req.params.id)
     if (!itemToDelete) {
       res.status(404).json({ error: true, message:'Facture not found' })
       return
     }
     
-    // modifier la liste des données
     const listToSave = list.filter(item => item.id != req.params.id)
 
-    // sauvegarder la liste des données (CORRIGÉ: factures.json au lieu de users.json)
-    await fs.promises.writeFile('./db/factures.json', JSON.stringify(listToSave))
+    await fs.promises.writeFile('./db/factures.json', JSON.stringify(listToSave, null, 2))
 
-    // puis on renvoie un message de confirmation
-    res.json({ error: false, message: 'Facture deleted' })
+    res.json({ error: false, message: 'Facture deleted successfully' })
   } catch (err) {
-    // en cas d'erreur, on renvoie un message d'erreur
     console.log(err)
-    res.status(500).json({ error: true, message:'Error reading file' })
+    res.status(500).json({ error: true, message:'Error deleting facture' })
   }
 }
 

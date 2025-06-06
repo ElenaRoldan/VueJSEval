@@ -1,20 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import TestView from '@/views/TestView.vue'
+import FacturesListe from '@/views/FacturesListe.vue'
+import EditFactureForm from '@/views/EditFactureForm.vue'
+import CreateFactureForm from '@/views/CreateFactureForm.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView,
+      name: 'factures',
+      component: FacturesListe,
     },
-     {
-      path: '/test',
-      name: 'test',
-      component: TestView,
-    },
+    {
+      path: '/facture/edit/:id',
+      name: 'factureEdit',
+      component: EditFactureForm,
+    }
 
    
   ],

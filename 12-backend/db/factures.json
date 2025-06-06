@@ -1,3 +1,33 @@
-[{"id":1,"date":"22/02/2025","num":"209589588","description":"Description facture","emit": "20/02/2025", "client": "Jean" }, 
-{"id":2,"date":"30/02/2025","num":"20599","description":"Description facture","emit": "30/02/2025", "client": "Marc" }
+[
+  {
+    "id": 2,
+    "date": "30/02/2027",
+    "num": "2059965656",
+    "description": "Description facture tes test test  ets",
+    "emit": "30/02/2027",
+    "client": "Marc",
+    "prestations": [
+      {
+        "id": 1,
+        "prestation": "Développement web",
+        "quantite": 10,
+        "montant": 50,
+        "montantTotal": 500
+      },
+      {
+        "id": 2,
+        "prestation": "Design graphique",
+        "quantite": 5,
+        "montant": 80,
+        "montantTotal": 400
+      },
+      {
+        "id": 1749220666073,
+        "prestation": "test",
+        "quantite": 10,
+        "montant": 500,
+        "montantTotal": 5000
+      }
+    ]
+  }
 ]
