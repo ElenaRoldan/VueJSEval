@@ -14,8 +14,8 @@
                   <input v-model="date" class="form-control" id="date">
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label for="numero" class="form-label">Numéro</label>
-                  <input v-model="num" type="text" class="form-control" id="numero">
+                  <label for="num" class="form-label">Numéro</label>
+                  <input v-model="num" type="text" class="form-control" id="num">
                 </div>
               </div>
               

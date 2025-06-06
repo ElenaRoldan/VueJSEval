@@ -11,6 +11,8 @@ export const useFacturesStore = defineStore('facture', () => {
   })
 
   const getFactures = async () => {
+      console.log('VITE_API_URL:', import.meta.env.VITE_API_URL)
+
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/factures`)
       facturesListe.value = response.data
