@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "name": "GameDemoAPI",
+  "name": "Factures",
   "type": "collection",
   "ignore": [
     "node_modules",
@@ -8,6 +8,6 @@
   ],
   "presets": {
     "requestType": "http",
-    "requestUrl": "http://localhost:3000"
+    "requestUrl": "http://localhost:3001"
   }
 }
