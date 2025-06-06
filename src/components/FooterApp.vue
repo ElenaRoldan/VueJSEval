@@ -1,6 +1,6 @@
 <template>
     <div>
-        Footer test
+        Footer test t
     </div>
 </template>
 
