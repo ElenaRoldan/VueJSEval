@@ -1,10 +1,9 @@
 <template>
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
+    
     <h2>{{props.title}}</h2>
-    <button class="btn btn-primary">
-      <i class="fas fa-plus me-2"></i>Ajouter une facture
-    </button>
+    <BBouton>Ajouter une facture</BBouton>
   </div>
 
   <div class="table-responsive">
@@ -21,6 +20,7 @@
               <button @click="$router.push(`/facture/edit/${item.id}`)" class="btn btn-outline-primary btn-sm me-1">
                 <i class="fas fa-edit"></i> Éditer
               </button>
+              
             </div>
           </td>
         </tr>
@@ -30,6 +30,8 @@
 </div>
 </template>
 <script setup>
+import BBouton from './BBouton.vue';
+
 
 const props = defineProps({
   donneesFactures : Array, 

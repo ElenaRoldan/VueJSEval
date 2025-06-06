@@ -17,7 +17,9 @@ const { getFactures } = factureStore
 
 onBeforeMount(async () => {
   await getFactures()
+
 })
+
 </script>
 
 <style scoped>

@@ -132,8 +132,8 @@
               </div>
               
               <div class="d-flex justify-content-between">
-                <button @click="onDelete" type="button" class="btn btn-danger">Supprimer</button>
-                <button @click="onSave" type="button" class="btn btn-primary">Enregistrer</button>
+                <BBouton  @click="onDelete" variant="btn btn-danger">Supprimer</BBouton>
+                <BBouton variant="btn btn-primary" @click="onSave">Enregistrer</BBouton>
               </div>
             </form>
           </div>
@@ -149,6 +149,7 @@ import { useFacturesStore } from '../stores/factures.js'
 import { storeToRefs } from 'pinia'
 import { onBeforeMount } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import BBouton from "@/components/BBouton.vue";
 
 const $router = useRouter()
 const $route = useRoute()
@@ -175,7 +176,6 @@ const total = computed(() => {
   return prestations.value.reduce((sum, p) => sum + p.montantTotal, 0)
 })
 
-// Ajouter une prestation
 const ajouterPrestation = () => {
   if (nouvellePrestation.value.prestation && nouvellePrestation.value.montant > 0) {
     const total = nouvellePrestation.value.quantite * nouvellePrestation.value.montant
